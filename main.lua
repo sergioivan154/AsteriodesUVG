@@ -68,14 +68,6 @@ character.w = 80
 myAnimation:play()
 character:play()
 
-
-local function swapSheet()
-myAnimation:setSequence( "seq2" )
-    myAnimation:play()   
-
-    character:setSequence( "jumping" )
-		character:play( )    
-end
 --timer.performWithDelay( 2000, swapSheet )
 
 
@@ -135,12 +127,9 @@ end
 
 function update(event) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		if Colision(myAnimation, character) then
-		character:setSequence( "running" )
-			character:play( )   
+			character:setSequence( "running" ) character:play()   
 		else 
-
-		character:setSequence( "jumping" )
-		character:play( )   
+		character:setSequence( "jumping" ) character:play()   
 	end
 end
 
