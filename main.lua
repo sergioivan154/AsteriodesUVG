@@ -19,4 +19,4 @@ local function menu()
 	storyboard.gotoScene ( "menu", { effect = "fade"} )
 end
 
-timer.performWithDelay( 4000, menu ) 
+timer.performWithDelay( 4000, menu )
