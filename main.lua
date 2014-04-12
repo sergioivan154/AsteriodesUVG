@@ -7,15 +7,18 @@ leftScrn = display.screenOriginX
 
 display.setStatusBar( display.HiddenStatusBar )
 
-local sky = display.newImage( "fondo.jpg" )
+local background = display.newImageRect( "fondo.jpg", display.contentWidth, display.contentHeight )
+	background.anchorX = 0
+	background.anchorY = 0
+	background.x, background.y = 0, 0
 
 local storyboard = require ("storyboard")
 storyboard.purgeOnSceneChange = true
 
 local function menu()
 
-	sky:removeSelf() 
-	sky = nil
+	background:removeSelf() 
+	background = nil
 	storyboard.gotoScene ( "menu", { effect = "fade"} )
 end
 
