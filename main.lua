@@ -84,13 +84,6 @@ local button1Press = function ( event )
 	myAnimation.x = myAnimation.x + 3;
 	myAnimation:setSequence( "seq1" )
         myAnimation:play()
-
-        
-
-
-        --character.x = character.x+3 
-        --character:setSequence( "running" )
-		--character:play()  
         
 end
 
