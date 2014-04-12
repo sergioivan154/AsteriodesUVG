@@ -109,16 +109,6 @@ local sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
 local sheetData2 = { width=61, height=100,  numFrames=8 }
 local sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
 
---sprite con en una sola imagen
-local sheetW = { width=80, height=60,  numFrames=9 }
-local sheetWario = graphics.newImageSheet( "wario.png", sheetW )
-
-local sequenceDataWario =
-{
-    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
-    { name="running", start=4, count=3,time=1000,loopCount=0 },
-    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
-}
 
 
 
@@ -127,26 +117,25 @@ local sequenceData = {
                 { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
                 }
 
-local myAnimation = display.newSprite( sheet2, sequenceData )
+local player = display.newSprite( sheet2, sequenceData )
 
-local character = display.newSprite( sheetWario, sequenceDataWario )
 
-myAnimation.x = display.contentWidth / 7 --posicion inicial x 
-myAnimation.y = baseline - 70 --posicion inicial y
-myAnimation.h = 100
-myAnimation.w = 61
-
+player.x = display.contentWidth / 7 --posicion inicial x 
+player.y = baseline - 70 --posicion inicial y
+player.h = 100
+player.w = 61
 
 
 
 
-myAnimation:play()
+
+player:play()
 
 
 
 local function swapSheet()
-myAnimation:setSequence( "seq2" )
-    myAnimation:play()   
+player:setSequence( "seq2" )
+    player:play()   
 
     character:setSequence( "jumping" )
 		character:play( )    
@@ -156,15 +145,15 @@ end
 
 
 local button1Press = function ( event )
-	myAnimation.x = myAnimation.x + 3;
-	myAnimation:setSequence( "seq1" )
-        myAnimation:play()
+	player.x = player.x + 3;
+	player:setSequence( "seq1" )
+        player:play()
        
 
 end
 
 local button2Press = function ( event )
-	myAnimation.x = myAnimation.x - 3;
+	player.x = player.x - 3;
 end
 
 
@@ -206,42 +195,65 @@ end
 
 
 
+function  comprobarColisiones(value,key)
+	if (colision(player,value)) then
+				table.remove(lPiedras,key)
+				value:removeSelf( )
+				value=nil
+	end
+end
+function  ponerPeligro()
+	
+	proPeligro = math.random ()
+		if(proPeligro<.01) then
+
+		
+
+		
+	--sprite con en una sola imagen piedras
+	 sheetW = { width=80, height=60,  numFrames=9 }
+	 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
+
+	 sequenceDataWario =
+	{
+	    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
+	    { name="running", start=4, count=3,time=1000,loopCount=0 },
+	    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
+	}
+
+	-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
+	character = display.newSprite( sheetWario, sequenceDataWario )
+
+	character.x = display.contentWidth --posicion inicial x 
+	character.y = baseline - 60 --posicion inicial y
+	character.h = 60
+	character.w = 80
+	character:play()
+	table.insert(lPiedras, character)
+	end
+
+end
+
 -- Logica del juego
 
 function update(event)
 
 		--Probabilidad de peligro 
 
-		proPeligro = math.random ()
-		if(proPeligro<.03) then
-
-			ponerPeligro()
-		end
+		ponerPeligro()
 		for key,value in ipairs(lPiedras) do 
 				value.x=value.x-1;
-				if(colision(myAnimation,value)) then
-					table.remove(lPiedras,key)
-				end
+				comprobarColisiones(value,key)
 		end
-		
 		 --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		
-		--if colision(myAnimation, character) then
+		--if colision(player, character) then
 			--character:setSequence( "running" )
 			--character:play( ) 
 	--end
 end
 
-function  ponerPeligro()
-	-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
-	
-	character.x = math.random(1,display.contentWidth) --posicion inicial x 
-	character.y = baseline - 70 --posicion inicial y
-	character.h = 60
-	character.w = 80
-	character:play()
-	table.insert(lPiedras, character)
-end
+
 
 Runtime:addEventListener("enterFrame", update )
 Runtime:addEventListener("enterFrame", move )
