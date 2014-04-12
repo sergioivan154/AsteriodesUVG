@@ -98,6 +98,9 @@ local function move(event)
 end
 
 
+-- Lista Piedras
+local iPiedras=0
+local listPiedras={}
 
 
 --una imagen con cortes w,h y el numero de frames  para un sprite ocupo 2 imagenes
@@ -136,13 +139,10 @@ myAnimation.w = 61
 
 
 
-character.x = display.contentWidth / 3 --posicion inicial x 
-character.y = baseline - 10 --posicion inicial y
-character.h = 60
-character.w = 80
+
 
 myAnimation:play()
-character:play()
+
 
 
 local function swapSheet()
@@ -160,8 +160,7 @@ local button1Press = function ( event )
 	myAnimation.x = myAnimation.x + 3;
 	myAnimation:setSequence( "seq1" )
         myAnimation:play()
-        move()
-        tree[tree.length+1]=display.newImage['jhtry']
+       
 
 end
 
@@ -206,14 +205,32 @@ function colision(obj1, obj2) --Esta función, verifica si hay colisión entre l
 return false --Si el if no se cumple, viene a esta línea y retorna false, no hay colisión
 end
 
-function update(event) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
-		if colision(myAnimation, character) then
-		character:setSequence( "running" )
-			character:play( )   
+
+
+-- Logica del juego
+
+function update(event)
+
+
+		 --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		
-		character:setSequence( "jumping" )
-		character:play( )   
-	end
+		--if colision(myAnimation, character) then
+			--character:setSequence( "running" )
+			--character:play( ) 
+	--end
+end
+
+function  ponerPeligro()
+	-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
+	
+	character.x = display.contentWidth / 3 --posicion inicial x 
+	character.y = baseline - 10 --posicion inicial y
+	character.h = 60
+	character.w = 80
+	character:play()
+	listPiedras[iPiedras]=character;
+	iPiedras=ipiedras+1
+
 end
 
 Runtime:addEventListener("enterFrame", update )
