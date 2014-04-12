@@ -2,12 +2,6 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 local widget = require("widget")
 
-local background = display.newImageRect( "background.jpg", display.contentWidth, display.contentHeight )
-	background.anchorX = 0
-	background.anchorY = 0
-	background.x, background.y = 0, 0
-
-
 -- local forward references should go here --
 
 
@@ -20,6 +14,11 @@ end
 function scene:createScene( event )
 	local group = self.view
 
+	local background = display.newImageRect( "background.jpg", display.contentWidth, display.contentHeight )
+	background.anchorX = 0
+	background.anchorY = 0
+	background.x, background.y = 0, 0
+	group:insert(background)
 
 	-- create custom buttom
 	local lunasBtn = widget.newButton
@@ -35,7 +34,7 @@ function scene:createScene( event )
 	lunasBtn.y = centerY*1.2
 	lunasBtn.destination = "options"
 	--optionsBtn:addEventListener("tap", btnTap)
-	--group:insert(optionsBtn)
+	group:insert(lunasBtn)
 
 	local planetasBtn = widget.newButton
 	{
@@ -50,7 +49,7 @@ function scene:createScene( event )
 	planetasBtn.y = centerY*1.2
 	planetasBtn.destination = "nivel1"
 	planetasBtn:addEventListener("tap", btnTap)
-	--group:insert(optionsBtn) 
+	group:insert(planetasBtn) 
 
 	local introBtn = widget.newButton
 	{
@@ -65,10 +64,10 @@ function scene:createScene( event )
 	introBtn.y = centerY*1.2
 	introBtn.destination = "options"
 	--optionsBtn:addEventListener("tap", btnTap)
-	--group:insert(optionsBtn)
+	group:insert(introBtn)
 
 	
---holi
+--hol
 	
 end
 
