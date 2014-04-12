@@ -1,3 +1,5 @@
+
+
 local widget = require( "widget" )
 
 local sky = display.newImage("fondo.jpg") --fondo
