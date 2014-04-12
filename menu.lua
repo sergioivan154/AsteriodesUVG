@@ -10,6 +10,8 @@ local function btnTap(event)
 	return true
 end
 
+
+
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
 	local group = self.view
@@ -20,6 +22,20 @@ function scene:createScene( event )
 	background.x, background.y = 0, 0
 	group:insert(background)
 
+	local health = display.newImageRect( "boto.png", 205, 15 )
+	health.x, health.y = 210, 6
+	group:insert(health)
+
+	local holi = function ( event )
+		--os.exit( )
+		health.width = health.width - 5
+	end
+	local hola = function ( event )
+		--os.exit( )
+		health.width = health.width + 5
+	end
+
+
 	-- create custom buttom
 	local lunasBtn = widget.newButton
 	{
@@ -27,6 +43,7 @@ function scene:createScene( event )
     height = 110,
     defaultFile = "crate.png",
     overFile = "crate.png",
+    --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
@@ -35,6 +52,7 @@ function scene:createScene( event )
 	lunasBtn.destination = "options"
 	--optionsBtn:addEventListener("tap", btnTap)
 	group:insert(lunasBtn)
+
 
 	local planetasBtn = widget.newButton
 	{
@@ -57,6 +75,7 @@ function scene:createScene( event )
     height = 110,
     defaultFile = "crate.png",
     overFile = "crate.png",
+    --onPress = hola 
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
