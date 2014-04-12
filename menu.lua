@@ -1,6 +1,3 @@
--- Rolly Bear World Project by Christian Peeters
--- See all tutorial @christian.peeters.com
-
 local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 local widget = require("widget")
@@ -132,7 +129,7 @@ function scene:createScene( event )
 	}
 	playBtn.x = centerX
 	playBtn.y = centerY*1.2 - 1.2*playBtn.height
-	playBtn.destination = "levels"
+	playBtn.destination = "nivel1"
 	playBtn:addEventListener("tap", btnTap)
 	group:insert(playBtn)
 

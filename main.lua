@@ -7,11 +7,18 @@ leftScrn = display.screenOriginX
 
 display.setStatusBar( display.HiddenStatusBar )
 
+<<<<<<< HEAD
+backgroundfill = display.newRect(leftScrn, topScrn, withScrn, heightScrn)
+=======
 local sky = display.newImage( "fondo.jpg" )
+>>>>>>> FETCH_HEAD
 
 local storyboard = require ("storyboard")
 storyboard.purgeOnSceneChange = true
 
+<<<<<<< HEAD
+storyboard.gotoScene ( "menu", { effect = "fade"} )
+=======
 local function menu()
 
 	sky:removeSelf() 
@@ -19,4 +26,9 @@ local function menu()
 	storyboard.gotoScene ( "menu", { effect = "fade"} )
 end
 
+<<<<<<< HEAD
 timer.performWithDelay( 4000, menu )
+=======
+timer.performWithDelay( 4000, menu ) 
+>>>>>>> FETCH_HEAD
+>>>>>>> 335c5cee0d9fecfbd5d7ef0040ffa0eacc2d1230
