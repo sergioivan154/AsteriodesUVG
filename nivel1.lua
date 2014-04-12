@@ -72,9 +72,9 @@ tree[8].dx = 0.8
 
 -- Efecto Paralax
 local tPrevious = system.getTimer()
-local function move()
-	--local tDelta = event.time - tPrevious
---	tPrevious = event.time
+local function move(event)
+	local tDelta = event.time - tPrevious
+	tPrevious = event.time
 
 	local xOffset = ( 0.2 * tDelta )
 
@@ -97,7 +97,6 @@ local function move()
 	end
 end
 
-local fondoPantalla = display.newImage("wario.png") --fondo
 
 
 
@@ -122,11 +121,11 @@ local sequenceDataWario =
 
 
 local sequenceData = {
-                { name="seq1", sheet=sheet1, start=1, count=3, time=700, loopCount=0 },
+                { name="seq1", sheet=sheet1, start=1, count=3, time=200, loopCount=0 },
                 { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
                 }
 
-local myAnimation = display.newSprite( sheet1, sequenceData )
+local myAnimation = display.newSprite( sheet2, sequenceData )
 
 local character = display.newSprite( sheetWario, sequenceDataWario )
 
@@ -211,15 +210,14 @@ function update(event) --Esta función, verifica si hay colisión entre los obje
 		if colision(myAnimation, character) then
 		character:setSequence( "running" )
 			character:play( )   
-		else if(myAnimation,tree)
-
+		
 		character:setSequence( "jumping" )
 		character:play( )   
 	end
 end
 
 Runtime:addEventListener("enterFrame", update )
--- Runtime:addEventListener("enterFrame", move )
+Runtime:addEventListener("enterFrame", move )
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
