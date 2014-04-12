@@ -133,4 +133,4 @@ function batalla(event) --Esta función, verifica si hay colisión entre los obj
 	end
 end
 
-Runtime:addEventListener("enterFrame", batalla )
+--Runtime:addEventListener("enterFrame", batalla )
