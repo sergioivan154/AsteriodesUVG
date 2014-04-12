@@ -109,9 +109,19 @@ local button2 = widget.newButton
 	onRelease = button2Release,
 }
 
+local button3 = widget.newButton
+{
+	defaultFile = "boto.png",
+	label = "<",
+	emboss = true,
+	onPress = button2Press,
+	onRelease = button2Release,
+}
+
 
 button1.x = 160; button1.y = 160
 button2.x = 120; button2.y = 120
+button3.x = 190; button3.y = 80
 
 function Colision(obj1, obj2) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 	if obj1.x+obj1.w>obj2.x --Borde derecho obj1 > borde izquierdo obj2
@@ -128,6 +138,7 @@ function batalla(event) --Esta función, verifica si hay colisión entre los obj
 		character:setSequence( "running" )
 			character:play( )   
 		else 
+
 		character:setSequence( "jumping" )
 		character:play( )   
 	end
