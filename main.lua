@@ -133,7 +133,7 @@ function Colision(obj1, obj2) --Esta función, verifica si hay colisión entre l
 return false --Si el if no se cumple, viene a esta línea y retorna false, no hay colisión
 end
 
-function batalla(event) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
+function update(event) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		if Colision(myAnimation, character) then
 		character:setSequence( "running" )
 			character:play( )   
@@ -144,4 +144,4 @@ function batalla(event) --Esta función, verifica si hay colisión entre los obj
 	end
 end
 
-Runtime:addEventListener("enterFrame", batalla )
+Runtime:addEventListener("enterFrame", update )
