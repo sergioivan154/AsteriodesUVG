@@ -7,11 +7,6 @@ leftScrn = display.screenOriginX
 
 
 backgroundfill = display.newRect(leftScrn, topScrn, withScrn, heightScrn)
-gradient = graphics.newGradient(
- { 80, 211, 255 },
-  {80, 100, 180 },
-  	"up" )
-backgroundfill:setFillColor(gradient)
 
 local storyboard = require ("storyboard")
 storyboard.purgeOnSceneChange = true
