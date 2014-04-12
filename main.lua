@@ -2,7 +2,7 @@
 
 local widget = require( "widget" )
 
-local sky = display.newImage("fondo.jpg") --fondo
+local sky = display.newImage("wario.png") --fondo
 
 local baseline = 300 -- no. base
 
@@ -133,4 +133,4 @@ function batalla(event) --Esta función, verifica si hay colisión entre los obj
 	end
 end
 
---Runtime:addEventListener("enterFrame", batalla )
+Runtime:addEventListener("enterFrame", batalla )
