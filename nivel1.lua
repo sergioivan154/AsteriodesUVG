@@ -100,8 +100,7 @@ end
 
 -- Lista Piedras
 local iPiedras=0
-local listPiedras={}
-
+local lPiedras={}
 
 --una imagen con cortes w,h y el numero de frames  para un sprite ocupo 2 imagenes
 local sheetData1 = { width=61, height=100,  numFrames=3 }
@@ -211,7 +210,20 @@ end
 
 function update(event)
 
+		--Probabilidad de peligro 
 
+		proPeligro = math.random ()
+		if(proPeligro<.03) then
+
+			ponerPeligro()
+		end
+		for key,value in ipairs(lPiedras) do 
+				value.x=value.x-1;
+				if(colision(myAnimation,value)) then
+					table.remove(lPiedras,key)
+				end
+		end
+		
 		 --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		
 		--if colision(myAnimation, character) then
@@ -223,14 +235,12 @@ end
 function  ponerPeligro()
 	-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
 	
-	character.x = display.contentWidth / 3 --posicion inicial x 
-	character.y = baseline - 10 --posicion inicial y
+	character.x = math.random(1,display.contentWidth) --posicion inicial x 
+	character.y = baseline - 70 --posicion inicial y
 	character.h = 60
 	character.w = 80
 	character:play()
-	listPiedras[iPiedras]=character;
-	iPiedras=ipiedras+1
-
+	table.insert(lPiedras, character)
 end
 
 Runtime:addEventListener("enterFrame", update )
