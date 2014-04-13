@@ -53,8 +53,8 @@ function scene:createScene( event )
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
-	introBtn.x = centerX - (centerX/1.5)
-	introBtn.y = centerY*1.2
+	introBtn.x = 1
+	introBtn.y = 1
 	introBtn.destination = "menu"
 	introBtn:addEventListener("tap", btnTap)
 	group:insert(introBtn)
@@ -137,8 +137,8 @@ function  scene:ponerPeligro()
 			character.x = display.contentWidth --posicion inicial x 
 			valorAleatorio=math.random(1,display.contentHeight)
 			character.y = valorAleatorio --posicion inicial y
-			character.h = 5
-			character.w = 5
+			character.h = 159
+			character.w = 162
 
 			--character:play()
 
