@@ -25,11 +25,19 @@ end
 function scene:createScene( event )
 	local group = self.view
 
-	local background = display.newImageRect( "background.jpg", display.contentWidth, display.contentHeight )
-	background.anchorX = 0
-	background.anchorY = 0
-	background.x, background.y = 0, 0
-	group:insert(background)
+	estrellas = display.newImageRect( "background-stage2.png",display.contentWidth, display.contentHeight  )
+	--estrellas.xScale = 4.2; estrellas.yScale = 4.2
+	estrellas.anchorX = 0
+	estrellas.x = 0
+	estrellas.y = 160
+	group:insert(estrellas)
+
+	estrellas2 = display.newImageRect( "background-stage2.png",display.contentWidth, display.contentHeight  )
+	--estrellas2.xScale = 4.2; estrellas2.yScale = 4.2
+	estrellas2.anchorX = 0
+	estrellas2.x = 480
+	estrellas2.y = 160
+	group:insert(estrellas2)
 
 	health = display.newImageRect( "boto.png", 205, 15 )
 	health.x, health.y = 210, 6
@@ -201,9 +209,31 @@ for keyBala,bala in ipairs(lbalas) do
 end
 	-- body
 
+
+-- Efecto Paralax
+local tPrevious = system.getTimer()
+local function move(event)
+	local tDelta = event.time - tPrevious
+	tPrevious = event.time
+
+	local xOffset = ( 0.2 * tDelta )
+
+	estrellas.x = estrellas.x - (xOffset/4)
+	estrellas2.x = estrellas2.x - (xOffset/4)
+	
+
+	if (estrellas.x + estrellas.contentWidth) < 0 then
+		estrellas:translate( 480 * 2, 0)
+	end
+	if (estrellas2.x + estrellas2.contentWidth) < 0 then
+		estrellas2:translate( 480 * 2, 0)
+	end
+end
+
+
 function update(event)
 
-	--move(event)
+	move(event)
 	dispara()
 
 		scene:ponerPeligro()
