@@ -120,18 +120,18 @@ button1 = widget.newButton
 		--onRelease = button1Release,
 		
 	}
-	button1.x = 160; button1.y = 160
+	button1.x = -1; button1.y = -1
 group:insert(button1)
 
 
 button2 = widget.newButton
 	{
-		defaultFile = "boto.png",
+		defaultFile = "crate.png",
 		label = "<",
 		onPress = button2Press,
 		--onRelease = button2Release,
 	}
-	button2.x = 120; button2.y = 120
+	button2.x = 1; button2.y = 1
 	group:insert(button2)
 
 	 
