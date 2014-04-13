@@ -155,17 +155,22 @@ local function move(event)
 	estrellas2.x = estrellas2.x - (xOffset/4)
 	
 	if (grass.x + grass.contentWidth) < 0 then
-		piso:translate( 480 * 2, 0)
+		
 		grass:translate( 480 * 2, 0)
 
 	end
 	if (grass2.x + grass2.contentWidth) < 0 then
-		piso2:translate( 480 * 2, 0)
+		
 		grass2:translate( 480 * 2, 0)
 
 	end
 
-	
+	if (piso.x + piso.contentWidth) < 0 then
+		piso:translate( 480 * 2, 0)
+	end
+	if (piso2.x + piso2.contentWidth) < 0 then
+		piso2:translate( 480 * 2, 0)
+	end
 
 	if (estrellas.x + estrellas.contentWidth) < 0 then
 		estrellas:translate( 480 * 2, 0)
@@ -228,7 +233,7 @@ local holi = function (event)
   					
   				end
 
-timer.performWithDelay( 35000, finish )
+timer.performWithDelay( 10000, finish )
 
 --timer.performWithDelay( 3000, holi )
 
