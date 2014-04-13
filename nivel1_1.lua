@@ -148,7 +148,19 @@ function  scene:ponerPeligro()
 		end
 
 end
+-- Load two audio streams and one sound
 
+local laserSound = audio.loadSound( "laser.mp3" )
+
+-- Completion listener function
+local function narrationFinished( event )
+    print( "Narration Finished on channel", event.channel )
+    if ( event.completed ) then
+        print( "Narration completed playback naturally" )
+    else
+        print( "Narration was stopped before completion" )
+    end
+end
 --Evento Touch
 local  ontTouch = function (event )
 	
@@ -156,16 +168,18 @@ local  ontTouch = function (event )
 --	bala[bala.lenght+1]=display.newImage( "ladrillo.png" )
    -- nave.y=nave.y-50
 	scene:ponerBala(event)
- 
+ -- Play the laser on any available channel
+	 laserChannel = audio.play( laserSound )
 
 	to=true
 	return true
 	end
 end
+
 function  scene:ponerBala(event)
 	local group = self.view
 
-
+	
 	sheetB = { width=30, height=30,  numFrames=4 }
 	sheetBala = graphics.newImageSheet( "bala-de-nave.png", sheetB )
 	
