@@ -119,8 +119,16 @@ function  scene:ponerPeligro()
 
 	proPeligro = math.random ()
 		if(proPeligro<.04) then
-			 sheetW = { width=80, height=60,  numFrames=9 }
-			 character = display.newImage( "asteroide.png")
+			 sheetW = { width=159, height=162,  numFrames=1 }
+			 sheetWario = graphics.newImageSheet( "asteroide.png", sheetW )
+
+			sequenceDataWario =
+			{
+			    { name="walking", start=1, count=1,time=700 ,loopCount=0 },
+			}
+			 --character = display.newImage( "asteroide.png")
+
+			character = display.newSprite( sheetWario, sequenceDataWario )
 
 			
 			-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
@@ -129,8 +137,8 @@ function  scene:ponerPeligro()
 			character.x = display.contentWidth --posicion inicial x 
 			valorAleatorio=math.random(1,display.contentHeight)
 			character.y = valorAleatorio --posicion inicial y
-			character.h = 10
-			character.w = 10
+			character.h = 5
+			character.w = 5
 
 			--character:play()
 
