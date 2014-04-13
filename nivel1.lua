@@ -5,6 +5,8 @@ local widget = require("widget")
 -- Elemento de touch
 local x,y= 0,0
 
+local currentLevel = 1 
+
 
 -- Variables para paralax
 local TOP_REF = 0
@@ -143,6 +145,17 @@ local sheetData2 = { width=61, height=100,  numFrames=8 }
 local sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
 
 
+
+
+
+
+local holi = function (event)
+  						transition.to( trophy, {time=600, alpha=0} )
+  						storyboard.showOverlay( "gameover" ,{effect = "fade"  ,  params ={curLevel = currentLevel}, isModal = true} )
+  					
+  				end
+
+timer.performWithDelay( 3000, holi )
 
 
 local sequenceData = {
