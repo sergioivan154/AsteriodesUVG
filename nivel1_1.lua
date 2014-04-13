@@ -164,9 +164,9 @@ local holi = function (event)
  finish = function (event)
   						transition.to( trophy, {time=600, alpha=0} )
 
-  						Runtime:removeEventListener("touch", ontTouch)
-  						Runtime:removeEventListener("enterFrame", update)
-  						Runtime:removeEventListener("enterFrame", move)
+  						--Runtime:removeEventListener("touch", ontTouch)
+  						--Runtime:removeEventListener("enterFrame", update)
+  						--Runtime:removeEventListener("enterFrame", move)
   						storyboard.gotoScene( "nivel1_1", {effect = "zoomOutInFadeRotate"} )
   					
   				end
