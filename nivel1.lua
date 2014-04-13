@@ -27,7 +27,7 @@ function scene:createScene( event )
 	local group = self.view
 
 
-estrellas = display.newImageRect( "bg-estrellas.png",display.contentWidth, display.contentHeight  )
+    estrellas = display.newImageRect( "bg-estrellas.png",display.contentWidth, display.contentHeight  )
 	--estrellas.xScale = 4.2; estrellas.yScale = 4.2
 	estrellas.anchorX = LEFT_REF
 	estrellas.x = 0
