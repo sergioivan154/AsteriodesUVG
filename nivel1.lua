@@ -100,6 +100,15 @@ local function move(event)
 	end
 end
 
+local health = display.newImageRect( "boto.png", 205, 15 )
+	health.x, health.y = 210, 6
+	--group:insert(health)
+
+	local herir = function ( event )
+		--os.exit( )
+		health.width = health.width - 10
+	end
+	
 function rectay(x1,x2,y1,y2,posx)
 
 	 imposy=(((y2-y1)/(x2-x1))*(posx-x1)) +y1
@@ -207,6 +216,7 @@ end
 
 function  comprobarColisiones(value,key)
 	if (colision(player,value)) then
+				herir() --bajar health
 				table.remove(lPiedras,key)
 				value:removeSelf( )
 				value=nil
