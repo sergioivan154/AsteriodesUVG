@@ -20,7 +20,7 @@ local _H = display.contentHeight
 local baseline = 300 -- no. base
 
 
--- Imagenes fijas
+-- Imagenes fijas 
 function scene:createScene( event )
 	local group = self.view
 
@@ -155,7 +155,7 @@ local holi = function (event)
   					
   				end
 
-timer.performWithDelay( 3000, holi )
+--timer.performWithDelay( 3000, holi )
 
 
 local sequenceData = {
@@ -188,7 +188,7 @@ end
 
 
 local button1Press = function ( event )
-	player.x = player.x + 3;
+	player.x = player.x + 10;
 	player:setSequence( "seq1" )
         player:play()
        
@@ -196,7 +196,7 @@ local button1Press = function ( event )
 end
 
 local button2Press = function ( event )
-	player.x = player.x - 3;
+	holi()
 end
 
 
@@ -218,7 +218,7 @@ local button2 = widget.newButton
 	label = "<",
 	emboss = true,
 	onPress = button2Press,
-	onRelease = button2Release,
+	--onRelease = button2Release,
 }
 
 
