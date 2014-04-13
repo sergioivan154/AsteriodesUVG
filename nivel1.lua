@@ -18,7 +18,9 @@ local CENTER_REF = 0.5
 local _W = display.contentWidth
 local _H = display.contentHeight
 local baseline = 300 -- no. base
-
+physics=require "physics"
+physics.start( )
+physics.getGravity(1,1)
 
 -- Imagenes fijas 
 function scene:createScene( event )
@@ -28,12 +30,14 @@ function scene:createScene( event )
 	grass.anchorX = LEFT_REF
 	grass.x = 0
 	grass.y = baseline - 20
+	physics.addBody( grass,"static",{friction=.03} )
 	group:insert(grass)
 
 	grass2 = display.newImage( "grass.png" )
 	grass2.anchorX = LEFT_REF
 	grass2.x = 480
 	grass2.y = baseline - 20
+	physics.addBody( grass2,"static",{friction=.03} )
 	group:insert(grass2)
 
 	 tree = {}
@@ -108,6 +112,7 @@ function scene:createScene( event )
 	player.h = 100
 	player.w = 61
 	player:play()
+	physics.addBody( player, {bounce=.03} )
 	group:insert(player)
 
 	lPiedras={}
@@ -301,7 +306,7 @@ local  ontTouch = function (event )
 	
 	if (event.phase=="began") then
 --	bala[bala.lenght+1]=display.newImage( "ladrillo.png" )
-
+player.y=player.y-50
 	scene:ponerBala(event)
  
 
