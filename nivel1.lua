@@ -26,70 +26,40 @@ physics.getGravity(1,1)
 function scene:createScene( event )
 	local group = self.view
 
-	grass = display.newImage( "grass.png" )
+	estrellas = display.newImage( "bg-estrellas.png" )
+	--estrellas.xScale = 4.2; estrellas.yScale = 4.2
+	estrellas.anchorX = LEFT_REF
+	estrellas.x = 0
+	--estrellas.y = baseline - 20
+	group:insert(estrellas)
+
+	estrellas2 = display.newImage( "bg-estrellas.png" )
+	--estrellas2.xScale = 4.2; estrellas2.yScale = 4.2
+	estrellas2.anchorX = LEFT_REF
+	estrellas2.x = 840
+	--estrellas2.y = baseline - 20
+	group:insert(estrellas2)
+
+	grass = display.newImage( "bg-terreno.png" )
+	--grass.xScale = 6.2; grass.yScale = 6.2
 	grass.anchorX = LEFT_REF
+	grass.w=2808
 	grass.x = 0
 	grass.y = baseline - 20
 	physics.addBody( grass,"static",{friction=.03} )
 	group:insert(grass)
 
-	grass2 = display.newImage( "grass.png" )
+	grass2 = display.newImage( "bg-terreno.png" )
+	--grass2.xScale = 2.2; grass2.yScale = 2.2
 	grass2.anchorX = LEFT_REF
-	grass2.x = 480
+	grass2.x = 2808
 	grass2.y = baseline - 20
 	physics.addBody( grass2,"static",{friction=.03} )
 	group:insert(grass2)
 
-	 tree = {}
-	tree[1] = display.newImage( "Palm-arecaceae.png" )
-	tree[1].xScale = 0.7; tree[1].yScale = 0.7
-	tree[1].anchorY = BOTTOM_REF
-	tree[1].x = 20; tree[1].y = baseline
-	tree[1].dx = 0.1
-	group:insert(tree[1])
-	tree[2] = display.newImage( "Greenhouse-Palm-jubaea01.png" )
-	tree[2].xScale = 0.6; tree[2].yScale = 0.6
-	tree[2].anchorY = BOTTOM_REF
-	tree[2].x = 120; tree[2].y = baseline
-	tree[2].dx = 0.2
-	group:insert(tree[2])
-	tree[3] = display.newImage( "Greenhouse-Palm-cycas01.png" )
-	tree[3].xScale = 0.8; tree[3].yScale = 0.8
-	tree[3].anchorY = BOTTOM_REF
-	tree[3].x = 200; tree[3].y = baseline
-	tree[3].dx = 0.3
-	group:insert(tree[3])
-	tree[4] = display.newImage( "Ginger.png" )
-	tree[4].xScale = 0.7; tree[4].yScale = 0.7
-	tree[4].anchorY = BOTTOM_REF
-	tree[4].x = baseline; tree[4].y = baseline
-	tree[4].dx = 0.4
-	group:insert(tree[4])
-	tree[5] = display.newImage( "Greenhouse-Palm-acai01.png" )
-	tree[5].xScale = 0.8; tree[5].yScale = 0.8
-	tree[5].anchorY = BOTTOM_REF
-	tree[5].x = 300; tree[5].y = baseline
-	tree[5].dx = 0.5
-	group:insert(tree[5])
-	tree[6] = display.newImage( "Dracena.png" )
-	tree[6].xScale = 0.4; tree[5].yScale = 0.4
-	tree[6].anchorY = BOTTOM_REF
-	tree[6].x = 320; tree[6].y = baseline
-	tree[6].dx = 0.6
-	group:insert(tree[6])
-	tree[7] = display.newImage( "Banana.png" )
-	tree[7].xScale = 0.4; tree[7].yScale = 0.4
-	tree[7].anchorY = BOTTOM_REF
-	tree[7].x = 380; tree[7].y = baseline
-	tree[7].dx = 0.7
-	group:insert(tree[7])
-	tree[8] = display.newImage( "Bamboo-rgba.png" )
-	tree[8].xScale = 0.8; tree[8].yScale = 0.8
-	tree[8].anchorY = BOTTOM_REF
-	tree[8].x = 420; tree[8].y = baseline
-	tree[8].dx = 0.8
-	group:insert(tree[8])
+	
 
+	 
 	health = display.newImageRect( "boto.png", 205, 15 )
 	health.x, health.y = 210, 6
 	group:insert(health)
@@ -98,15 +68,17 @@ function scene:createScene( event )
 	sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
 	
 
-	sheetData2 = { width=61, height=100,  numFrames=8 }
-	sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
+	sheetP = { width=111, height=144,  numFrames=10 }
+	sheetPlayer = graphics.newImageSheet( "robot-walk.png", sheetP )
 	
-	 sequenceData = {
-                { name="seq1", sheet=sheet1, start=1, count=3, time=200, loopCount=0 },
-                { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
-                }
 
-	player = display.newSprite( sheet2, sequenceData )
+       sequenceDataPlayer =
+			{
+			    { name="walking", start=1, count=7,time=600 ,loopCount=0 },
+			    
+			}
+
+	player = display.newSprite( sheetPlayer, sequenceDataPlayer )
 	player.x = display.contentWidth / 7 --posicion inicial x 
 	player.y = baseline - 70 --posicion inicial y
 	player.h = 100
@@ -143,6 +115,43 @@ button2 = widget.newButton
 
 	 
 end
+
+-- Efecto Paralax
+local tPrevious = system.getTimer()
+local function move(event)
+	local tDelta = event.time - tPrevious
+	tPrevious = event.time
+
+	local xOffset = ( 0.2 * tDelta )
+
+	grass.x = grass.x - xOffset
+	grass2.x = grass2.x - xOffset
+
+	estrellas.x = estrellas.x - xOffset
+	estrellas2.x = estrellas2.x - xOffset
+	
+	if (grass.x + grass.contentWidth) < 0 then
+		grass:translate( 2808 * 2, 0)
+	end
+	if (grass2.x + grass2.contentWidth) < 0 then
+		grass2:translate( 2808 * 2, 0)
+	end
+
+	if (estrellas.x + estrellas.contentWidth) < 0 then
+		estrellas:translate( 840 * 2, 0)
+	end
+	if (estrellas2.x + estrellas2.contentWidth) < 0 then
+		estrellas2:translate( 840 * 2, 0)
+	end
+	
+	--local i
+	--for i = 1, #tree, 1 do
+	--	tree[i].x = tree[i].x - tree[i].dx * tDelta * 0.2
+	--	if (tree[i].x + tree[i].contentWidth) < 0 then
+	--		tree[i]:translate( 480 + tree[i].contentWidth * 2, 0 )
+	--	end
+	--end
+end
 -- botones
  
 	
@@ -160,46 +169,7 @@ button2Press = function ( event )
 	
 end
 
-
-
- 
-	
-	
-
-
-
-
 -- Imagenes paralax
-
-
--- Efecto Paralax
-local tPrevious = system.getTimer()
-local function move(event)
-	local tDelta = event.time - tPrevious
-	tPrevious = event.time
-
-	local xOffset = ( 0.2 * tDelta )
-
-	grass.x = grass.x - xOffset
-	grass2.x = grass2.x - xOffset
-	
-	if (grass.x + grass.contentWidth) < 0 then
-		grass:translate( 480 * 2, 0)
-	end
-	if (grass2.x + grass2.contentWidth) < 0 then
-		grass2:translate( 480 * 2, 0)
-	end
-	
-	local i
-	for i = 1, #tree, 1 do
-		tree[i].x = tree[i].x - tree[i].dx * tDelta * 0.2
-		if (tree[i].x + tree[i].contentWidth) < 0 then
-			tree[i]:translate( 480 + tree[i].contentWidth * 2, 0 )
-		end
-	end
-end
-
-
 	local herir = function ( event )
 		--os.exit( )
 		health.width = health.width - 10
@@ -231,12 +201,6 @@ local holi = function (event)
 --timer.performWithDelay( 5000, finish )
 
 --timer.performWithDelay( 3000, holi )
-
-
-local sequenceData = {
-                { name="seq1", sheet=sheet1, start=1, count=3, time=200, loopCount=0 },
-                { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
-                }
 
 
 
@@ -316,11 +280,26 @@ player.y=player.y-50
 end
 function  scene:ponerBala(event)
 	local group = self.view
-	 bala = display.newImage( "ladrillo.png" )
-	 bala.x=player.x
-	 bala.y=player.y
-	 bala.w=player.w
-	 bala.h=player.h
+
+
+	sheetB = { width=30, height=30,  numFrames=4 }
+	sheetBala = graphics.newImageSheet( "bala.png", sheetB )
+	
+
+       sequenceDataBala =
+			{
+			    { name="disparo", start=1, count=3,time=600 ,loopCount=0 },
+			    
+			}
+
+	bala = display.newSprite( sheetBala, sequenceDataBala )
+	
+	 bala.x=player.x+40
+	 bala.y=player.y-450
+	 bala.w=30
+	 bala.h=30
+	 bala:play( )
+
 	 group:insert(bala)
 
 	arrayBalas={}

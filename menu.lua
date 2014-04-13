@@ -23,6 +23,17 @@ function scene:createScene( event )
 	group:insert(background)
 
 	-- create custom buttom
+	local logo = widget.newButton
+	{
+	width = 150,
+    height = 150,
+    defaultFile = "logo.png",
+	}
+	logo.x = centerX 
+	logo.y = centerY - (centerY/2)
+	--optionsBtn:addEventListener("tap", btnTap)
+	group:insert(logo)
+
 	local lunasBtn = widget.newButton
 	{
 	width = 110,
@@ -34,7 +45,7 @@ function scene:createScene( event )
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
 	lunasBtn.x = centerX + (centerX/1.5)
-	lunasBtn.y = centerY*1.2
+	lunasBtn.y = centerY*1.5
 	lunasBtn.destination = "options"
 	--optionsBtn:addEventListener("tap", btnTap)
 	group:insert(lunasBtn)
@@ -50,7 +61,7 @@ function scene:createScene( event )
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
 	planetasBtn.x = centerX
-	planetasBtn.y = centerY*1.2
+	planetasBtn.y = centerY*1.5
 	planetasBtn.destination = "planetsMenu"
 	planetasBtn:addEventListener("tap", btnTap)
 	group:insert(planetasBtn) 
@@ -66,7 +77,7 @@ function scene:createScene( event )
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
 	introBtn.x = centerX - (centerX/1.5)
-	introBtn.y = centerY*1.2
+	introBtn.y = centerY*1.5
 	introBtn.destination = "options"
 	--optionsBtn:addEventListener("tap", btnTap)
 	group:insert(introBtn)
