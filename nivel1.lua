@@ -4,9 +4,7 @@ local scene = storyboard.newScene()
 local widget = require("widget")
 -- Elemento de touch
 local x,y= 0,0
-local bala = display.newImage( "ladrillo.png" )
-local posx=bala.x
-local posy=bala.y
+
 
 -- Variables para paralax
 local TOP_REF = 0
@@ -99,7 +97,6 @@ local function move(event)
 		end
 	end
 end
-
 local health = display.newImageRect( "boto.png", 205, 15 )
 	health.x, health.y = 210, 6
 	--group:insert(health)
@@ -108,18 +105,17 @@ local health = display.newImageRect( "boto.png", 205, 15 )
 		--os.exit( )
 		health.width = health.width - 10
 	end
-	
 function rectay(x1,x2,y1,y2,posx)
 
 	 imposy=(((y2-y1)/(x2-x1))*(posx-x1)) +y1
-	  print( imposy .." X2 ".. x2.." X1 ".. x1.." Y2 ".. y2 .." Y1 ".. y1 .." Pos X ".. posx)
+	
 	return imposy
 	
 	end
 -- Lista Piedras
 
 local lPiedras={}
-
+local lbalas={}
 --una imagen con cortes w,h y el numero de frames  para un sprite ocupo 2 imagenes
 local sheetData1 = { width=61, height=100,  numFrames=3 }
 local sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
@@ -143,13 +139,9 @@ player.y = baseline - 70 --posicion inicial y
 player.h = 100
 player.w = 61
 
-bala.x=player.x
-bala.y=player.y
-
 
 
 player:play()
-
 
 
 local function swapSheet()
@@ -203,6 +195,7 @@ button1.x = 160; button1.y = 160
 button2.x = 120; button2.y = 120
 
 function colision(obj1, obj2) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
+	
 	if obj1.x+obj1.w>obj2.x --Borde derecho obj1 > borde izquierdo obj2
 	and obj1.x<obj2.x+obj2.w --Borde izquierdo obj1 < borde derecho obj2
 	and obj1.y+obj1.h>obj2.y --Borde inferior obj1 > borde superior obj2
@@ -214,15 +207,7 @@ end
 
 
 
-function  comprobarColisiones(value,key)
-	if (colision(player,value)) then
-				herir() --bajar health
-				table.remove(lPiedras,key)
-				value:removeSelf( )
-				value=nil
-	end
-	
-end
+
 function  ponerPeligro()
 	
 	proPeligro = math.random ()
@@ -258,28 +243,82 @@ end
 local  ontTouch = function (event )
 	if (event.phase=="began") then
 --	bala[bala.lenght+1]=display.newImage( "ladrillo.png" )
-x=event.x
-y=event.y
+
+
+ bala = display.newImage( "ladrillo.png" )
+	 bala.x=player.x
+	 bala.y=player.y
+	 bala.w=player.w
+	 bala.h=player.h
+
+	arrayBalas={}
+
+	arrayBalas[0]=bala
+	arrayBalas[1]=player.x -- X1
+	arrayBalas[2]=player.y -- Y1
+	arrayBalas[3]=event.x -- X2
+	arrayBalas[4]=event.y-- Y2
+
+ table.insert(lbalas, arrayBalas )
 
 to=true
 	return true
 	end
 end
 -- Logica del juego
+local  i = 1
+function dispara( )
+for keyBala,bala in ipairs(lbalas) do 
+
+						bala[0].x=(bala[0].x)+20
+						bala[0].y=(rectay(bala[1],bala[3],bala[2], bala[4],bala[0].x))
+						print("Numero Balas"..table.getn(lbalas))
+						i=i+1
+
+	end	
+end
+	-- body
 
 function update(event)
 
-	if(to==true and x>bala.x and y>bala.y)then
-	bala.x=bala.x+3
-	bala.y=(rectay(posx,x,posy, y,bala.x))
-		--Probabilidad de peligro 
-	end
-	
+
+	dispara()
+
 		ponerPeligro()
-		for key,value in ipairs(lPiedras) do 
-				value.x=value.x-1;
-				comprobarColisiones(value,key)
+		for keyPiedra,piedra in ipairs(lPiedras) do 
+				piedra.x=piedra.x-1;
+				
+
+				if(colision(player,piedra)) then
+					table.remove(lPiedras,keyPiedra)
+					piedra:removeSelf( )
+					piedra=nil
+					herir() 
+				end
+					
 		end
+		for keyBala,bala in ipairs(lbalas) do 
+			for keyPiedra,piedra in ipairs(lPiedras) do 
+				if(not(bala[0]==nil))then
+		
+					if(colision(bala[0],piedra))then
+						table.remove(lPiedras,keyPiedra)
+						piedra:removeSelf()
+						piedra=nil
+						table.remove(lbalas,keyBala)
+						bala[0]:removeSelf()
+						bala[0]=nil
+					
+					elseif(bala[0].x>display.contentWidth or bala[0].y>display.contentHeight or bala[0].y<0 or bala[0].x<0)then
+						table.remove(lbalas,keyBala)
+						bala[0]:removeSelf()
+						bala[0]=nil
+					end
+				end
+			end
+		end
+ 			
+							--Probabilidad de peligro 
 		 --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 		
 		--if colision(player, character) then
