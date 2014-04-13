@@ -110,7 +110,7 @@ function  scene:ponerPeligro()
 	local group = self.view
 
 	proPeligro = math.random ()
-		if(proPeligro<.01) then
+		if(proPeligro<.04) then
 			 sheetW = { width=80, height=60,  numFrames=9 }
 			 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
 
@@ -124,7 +124,8 @@ function  scene:ponerPeligro()
 			character = display.newSprite( sheetWario, sequenceDataWario )
 
 			character.x = display.contentWidth --posicion inicial x 
-			character.y = baseline - 60 --posicion inicial y
+			valorAleatorio=math.random(1,display.contentHeight)
+			character.y = valorAleatorio --posicion inicial y
 			character.h = 60
 			character.w = 80
 

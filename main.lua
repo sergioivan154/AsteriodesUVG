@@ -7,7 +7,7 @@ leftScrn = display.screenOriginX
 
 display.setStatusBar( display.HiddenStatusBar )
 
-local background = display.newImageRect( "fondo.jpg", display.contentWidth, display.contentHeight )
+local background = display.newImageRect( "pantalla-inicio.png", display.contentWidth, display.contentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
 	background.x, background.y = 0, 0
