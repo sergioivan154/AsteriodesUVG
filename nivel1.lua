@@ -90,8 +90,77 @@ function scene:createScene( event )
 	health.x, health.y = 210, 6
 	group:insert(health)
 
+	sheetData1 = { width=61, height=100,  numFrames=3 }
+	sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
+	
+
+	sheetData2 = { width=61, height=100,  numFrames=8 }
+	sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
+	
+	 sequenceData = {
+                { name="seq1", sheet=sheet1, start=1, count=3, time=200, loopCount=0 },
+                { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
+                }
+
+	player = display.newSprite( sheet2, sequenceData )
+	player.x = display.contentWidth / 7 --posicion inicial x 
+	player.y = baseline - 70 --posicion inicial y
+	player.h = 100
+	player.w = 61
+	player:play()
+	group:insert(player)
+
+	lPiedras={}
+	lbalas={}
+	
+
+button1 = widget.newButton
+	{
+		defaultFile = "boto.png",
+		label = ">",
+		onPress = button1Press,
+		--onRelease = button1Release,
+		
+	}
+	button1.x = 160; button1.y = 160
+group:insert(button1)
+
+
+button2 = widget.newButton
+	{
+		defaultFile = "boto.png",
+		label = "<",
+		onPress = button2Press,
+		--onRelease = button2Release,
+	}
+	button2.x = 120; button2.y = 120
+	group:insert(button2)
+
+	 
+end
+-- botones
+ 
+	
+button1Press = function ( event )
+	-- body
+	player.x = player.x +10
+end
+
+
+button2Press = function ( event )
+	--holi()
+	player.x = player.x -10
+	transition.to( trophy, {time=600, alpha=0} )
+	storyboard.showOverlay( "gameover" ,{effect = "fade"  ,  params ={curLevel = currentLevel}, isModal = true} )
 	
 end
+
+
+
+ 
+	
+	
+
 
 
 
@@ -137,18 +206,6 @@ function rectay(x1,x2,y1,y2,posx)
 	return imposy
 	
 	end
--- Lista Piedras
-
-local lPiedras={}
-local lbalas={}
---una imagen con cortes w,h y el numero de frames  para un sprite ocupo 2 imagenes
-local sheetData1 = { width=61, height=100,  numFrames=3 }
-local sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
-
-local sheetData2 = { width=61, height=100,  numFrames=8 }
-local sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
-
-
 
 
 
@@ -156,22 +213,17 @@ local sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
 local holi = function (event)
   						transition.to( trophy, {time=600, alpha=0} )
   						storyboard.showOverlay( "gameover" ,{effect = "fade"  ,  params ={curLevel = currentLevel}, isModal = true} )
-	  					Runtime:removeEventListener('enterFrame', update)
-	  					Runtime:removeEventListener('enterFrame', move)
-	  					Runtime:removeEventListener('ontTouch', ontTouch)
+	  				
   				end
 
  finish = function (event)
   						transition.to( trophy, {time=600, alpha=0} )
 
-  						Runtime:removeEventListener("touch", ontTouch)
-  						Runtime:removeEventListener("enterFrame", update)
-  						Runtime:removeEventListener("enterFrame", move)
   						storyboard.gotoScene( "nivel1_1", {effect = "zoomOutInFadeRotate"} )
   					
   				end
 
-timer.performWithDelay( 5000, finish )
+--timer.performWithDelay( 5000, finish )
 
 --timer.performWithDelay( 3000, holi )
 
@@ -181,17 +233,7 @@ local sequenceData = {
                 { name="seq2", sheet=sheet2, start=1, count=8, time=2000, loopCount=1 }
                 }
 
-local player = display.newSprite( sheet2, sequenceData )
 
-
-player.x = display.contentWidth / 7 --posicion inicial x 
-player.y = baseline - 70 --posicion inicial y
-player.h = 100
-player.w = 61
-
-
-
-player:play()
 
 
 local function swapSheet()
@@ -205,44 +247,10 @@ end
 
 
 
-local button1Press = function ( event )
-	player.x = player.x + 10;
-	player:setSequence( "seq1" )
-        player:play()
-       
-
-end
-
-local button2Press = function ( event )
-	holi()
-end
 
 
 
 
-local button1 = widget.newButton
-{
-	defaultFile = "boto.png",
-	label = ">",
-	emboss = false,
-	onPress = button1Press,
-	onRelease = button1Release
-	
-}
-
-local button2 = widget.newButton
-{
-	defaultFile = "boto.png",
-	label = "<",
-	emboss = true,
-	onPress = button2Press,
-	--onRelease = button2Release,
-}
-
-
-
-button1.x = 160; button1.y = 160
-button2.x = 120; button2.y = 120
 
 function colision(obj1, obj2) --Esta función, verifica si hay colisión entre los objetos, dentro de la función se usan los parámetros que recibe.
 	
@@ -258,48 +266,57 @@ end
 
 
 
-function  ponerPeligro()
-	
+function  scene:ponerPeligro()
+	local group = self.view
+
 	proPeligro = math.random ()
 		if(proPeligro<.01) then
+			 sheetW = { width=80, height=60,  numFrames=9 }
+			 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
 
-		
+			 sequenceDataWario =
+			{
+			    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
+			    { name="running", start=4, count=3,time=1000,loopCount=0 },
+			    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
+			}
+			-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
+			character = display.newSprite( sheetWario, sequenceDataWario )
 
-		
-	--sprite con en una sola imagen piedras
-	 sheetW = { width=80, height=60,  numFrames=9 }
-	 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
+			character.x = display.contentWidth --posicion inicial x 
+			character.y = baseline - 60 --posicion inicial y
+			character.h = 60
+			character.w = 80
 
-	 sequenceDataWario =
-	{
-	    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
-	    { name="running", start=4, count=3,time=1000,loopCount=0 },
-	    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
-	}
+			character:play()
 
-	-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
-	character = display.newSprite( sheetWario, sequenceDataWario )
+			group:insert(character)
 
-	character.x = display.contentWidth --posicion inicial x 
-	character.y = baseline - 60 --posicion inicial y
-	character.h = 60
-	character.w = 80
-	character:play()
-	table.insert(lPiedras, character)
-	end
+			table.insert(lPiedras, character)
+		end
 
 end
 --Evento Touch
 local  ontTouch = function (event )
+	
 	if (event.phase=="began") then
 --	bala[bala.lenght+1]=display.newImage( "ladrillo.png" )
 
+	scene:ponerBala(event)
+ 
 
- bala = display.newImage( "ladrillo.png" )
+	to=true
+	return true
+	end
+end
+function  scene:ponerBala(event)
+	local group = self.view
+	 bala = display.newImage( "ladrillo.png" )
 	 bala.x=player.x
 	 bala.y=player.y
 	 bala.w=player.w
 	 bala.h=player.h
+	 group:insert(bala)
 
 	arrayBalas={}
 
@@ -310,10 +327,9 @@ local  ontTouch = function (event )
 	arrayBalas[4]=event.y-- Y2
 
  table.insert(lbalas, arrayBalas )
+ 	
 
-to=true
-	return true
-	end
+	-- body
 end
 -- Logica del juego
 local  i = 1
@@ -322,8 +338,7 @@ for keyBala,bala in ipairs(lbalas) do
 
 						bala[0].x=(bala[0].x)+20
 						bala[0].y=(rectay(bala[1],bala[3],bala[2], bala[4],bala[0].x))
-						print("Numero Balas"..table.getn(lbalas))
-						i=i+1
+						
 
 	end	
 end
@@ -331,10 +346,10 @@ end
 
 function update(event)
 
-
+	move(event)
 	dispara()
 
-		ponerPeligro()
+		scene:ponerPeligro()
 		for keyPiedra,piedra in ipairs(lPiedras) do 
 				piedra.x=piedra.x-1;
 				
@@ -384,6 +399,9 @@ function scene:enterScene( event )
 
 	-- INSERT code here (e.g. start timers, load audio, start listeners, etc.)
 
+	Runtime:addEventListener( "touch", ontTouch )
+	Runtime:addEventListener("enterFrame", update )
+	
 end
 
 
@@ -393,7 +411,9 @@ function scene:exitScene( event )
 
 	-- INSERT code here (e.g. stop timers, remove listeners, unload sounds, etc.)
 	-- Remove listeners attached to the Runtime, timers, transitions, audio tracks
-
+		Runtime:removeEventListener("touch", ontTouch)
+		Runtime:removeEventListener("enterFrame", update)
+		--Runtime:removeEventListener("enterFrame", move)
 end
 
 
@@ -407,10 +427,6 @@ function scene:destroyScene( event )
 end
 
 
-
-	Runtime:addEventListener( "touch", ontTouch )
-	Runtime:addEventListener("enterFrame", update )
-	Runtime:addEventListener("enterFrame", move )
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
