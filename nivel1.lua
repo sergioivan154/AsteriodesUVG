@@ -19,57 +19,78 @@ local baseline = 300 -- no. base
 
 
 -- Imagenes fijas
-local grass = display.newImage( "grass.png" )
-grass.anchorX = LEFT_REF
-grass.x = 0
-grass.y = baseline - 20
-local grass2 = display.newImage( "grass.png" )
-grass2.anchorX = LEFT_REF
-grass2.x = 480
-grass2.y = baseline - 20
+function scene:createScene( event )
+	local group = self.view
+
+	grass = display.newImage( "grass.png" )
+	grass.anchorX = LEFT_REF
+	grass.x = 0
+	grass.y = baseline - 20
+	group:insert(grass)
+
+	grass2 = display.newImage( "grass.png" )
+	grass2.anchorX = LEFT_REF
+	grass2.x = 480
+	grass2.y = baseline - 20
+	group:insert(grass2)
+
+	 tree = {}
+	tree[1] = display.newImage( "Palm-arecaceae.png" )
+	tree[1].xScale = 0.7; tree[1].yScale = 0.7
+	tree[1].anchorY = BOTTOM_REF
+	tree[1].x = 20; tree[1].y = baseline
+	tree[1].dx = 0.1
+	group:insert(tree[1])
+	tree[2] = display.newImage( "Greenhouse-Palm-jubaea01.png" )
+	tree[2].xScale = 0.6; tree[2].yScale = 0.6
+	tree[2].anchorY = BOTTOM_REF
+	tree[2].x = 120; tree[2].y = baseline
+	tree[2].dx = 0.2
+	group:insert(tree[2])
+	tree[3] = display.newImage( "Greenhouse-Palm-cycas01.png" )
+	tree[3].xScale = 0.8; tree[3].yScale = 0.8
+	tree[3].anchorY = BOTTOM_REF
+	tree[3].x = 200; tree[3].y = baseline
+	tree[3].dx = 0.3
+	group:insert(tree[3])
+	tree[4] = display.newImage( "Ginger.png" )
+	tree[4].xScale = 0.7; tree[4].yScale = 0.7
+	tree[4].anchorY = BOTTOM_REF
+	tree[4].x = baseline; tree[4].y = baseline
+	tree[4].dx = 0.4
+	group:insert(tree[4])
+	tree[5] = display.newImage( "Greenhouse-Palm-acai01.png" )
+	tree[5].xScale = 0.8; tree[5].yScale = 0.8
+	tree[5].anchorY = BOTTOM_REF
+	tree[5].x = 300; tree[5].y = baseline
+	tree[5].dx = 0.5
+	group:insert(tree[5])
+	tree[6] = display.newImage( "Dracena.png" )
+	tree[6].xScale = 0.4; tree[5].yScale = 0.4
+	tree[6].anchorY = BOTTOM_REF
+	tree[6].x = 320; tree[6].y = baseline
+	tree[6].dx = 0.6
+	group:insert(tree[6])
+	tree[7] = display.newImage( "Banana.png" )
+	tree[7].xScale = 0.4; tree[7].yScale = 0.4
+	tree[7].anchorY = BOTTOM_REF
+	tree[7].x = 380; tree[7].y = baseline
+	tree[7].dx = 0.7
+	group:insert(tree[7])
+	tree[8] = display.newImage( "Bamboo-rgba.png" )
+	tree[8].xScale = 0.8; tree[8].yScale = 0.8
+	tree[8].anchorY = BOTTOM_REF
+	tree[8].x = 420; tree[8].y = baseline
+	tree[8].dx = 0.8
+	group:insert(tree[8])
+
+	health = display.newImageRect( "boto.png", 205, 15 )
+	health.x, health.y = 210, 6
+	group:insert(health)
+end
 
 -- Imagenes paralax
-local tree = {}
-tree[1] = display.newImage( "Palm-arecaceae.png" )
-tree[1].xScale = 0.7; tree[1].yScale = 0.7
-tree[1].anchorY = BOTTOM_REF
-tree[1].x = 20; tree[1].y = baseline
-tree[1].dx = 0.1
-tree[2] = display.newImage( "Greenhouse-Palm-jubaea01.png" )
-tree[2].xScale = 0.6; tree[2].yScale = 0.6
-tree[2].anchorY = BOTTOM_REF
-tree[2].x = 120; tree[2].y = baseline
-tree[2].dx = 0.2
-tree[3] = display.newImage( "Greenhouse-Palm-cycas01.png" )
-tree[3].xScale = 0.8; tree[3].yScale = 0.8
-tree[3].anchorY = BOTTOM_REF
-tree[3].x = 200; tree[3].y = baseline
-tree[3].dx = 0.3
-tree[4] = display.newImage( "Ginger.png" )
-tree[4].xScale = 0.7; tree[4].yScale = 0.7
-tree[4].anchorY = BOTTOM_REF
-tree[4].x = baseline; tree[4].y = baseline
-tree[4].dx = 0.4
-tree[5] = display.newImage( "Greenhouse-Palm-acai01.png" )
-tree[5].xScale = 0.8; tree[5].yScale = 0.8
-tree[5].anchorY = BOTTOM_REF
-tree[5].x = 300; tree[5].y = baseline
-tree[5].dx = 0.5
-tree[6] = display.newImage( "Dracena.png" )
-tree[6].xScale = 0.4; tree[5].yScale = 0.4
-tree[6].anchorY = BOTTOM_REF
-tree[6].x = 320; tree[6].y = baseline
-tree[6].dx = 0.6
-tree[7] = display.newImage( "Banana.png" )
-tree[7].xScale = 0.4; tree[7].yScale = 0.4
-tree[7].anchorY = BOTTOM_REF
-tree[7].x = 380; tree[7].y = baseline
-tree[7].dx = 0.7
-tree[8] = display.newImage( "Bamboo-rgba.png" )
-tree[8].xScale = 0.8; tree[8].yScale = 0.8
-tree[8].anchorY = BOTTOM_REF
-tree[8].x = 420; tree[8].y = baseline
-tree[8].dx = 0.8
+
 
 -- Efecto Paralax
 local tPrevious = system.getTimer()
@@ -97,9 +118,7 @@ local function move(event)
 		end
 	end
 end
-local health = display.newImageRect( "boto.png", 205, 15 )
-	health.x, health.y = 210, 6
-	--group:insert(health)
+
 
 	local herir = function ( event )
 		--os.exit( )
