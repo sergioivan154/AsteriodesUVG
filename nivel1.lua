@@ -89,6 +89,36 @@ function scene:createScene( event )
 	health = display.newImageRect( "boto.png", 205, 15 )
 	health.x, health.y = 210, 6
 	group:insert(health)
+
+	
+end
+
+-- Called immediately after scene has moved onscreen:
+function scene:enterScene( event )
+	local group = self.view
+
+	-- INSERT code here (e.g. start timers, load audio, start listeners, etc.)
+
+end
+
+
+-- Called when scene is about to move offscreen:
+function scene:exitScene( event )
+	local group = self.view
+
+	-- INSERT code here (e.g. stop timers, remove listeners, unload sounds, etc.)
+	-- Remove listeners attached to the Runtime, timers, transitions, audio tracks
+
+end
+
+
+-- Called prior to the removal of scene's "view" (display group)
+function scene:destroyScene( event )
+	local group = self.view
+
+	-- INSERT code here (e.g. remove listeners, widgets, save state, etc.)
+	-- Remove listeners attached to the Runtime, timers, transitions, audio tracks
+
 end
 
 -- Imagenes paralax
@@ -152,7 +182,9 @@ local sheet2 = graphics.newImageSheet( "Caminar.png", sheetData2 )
 local holi = function (event)
   						transition.to( trophy, {time=600, alpha=0} )
   						storyboard.showOverlay( "gameover" ,{effect = "fade"  ,  params ={curLevel = currentLevel}, isModal = true} )
-  					
+	  					Runtime:removeEventListener('enterFrame', update)
+	  					Runtime:removeEventListener('enterFrame', move)
+	  					Runtime:removeEventListener('ontTouch', ontTouch)
   				end
 
 --timer.performWithDelay( 3000, holi )
@@ -360,9 +392,9 @@ function update(event)
 end
 
 
-Runtime:addEventListener( "touch", ontTouch )
-Runtime:addEventListener("enterFrame", update )
-Runtime:addEventListener("enterFrame", move )
+	Runtime:addEventListener( "touch", ontTouch )
+	Runtime:addEventListener("enterFrame", update )
+	Runtime:addEventListener("enterFrame", move )
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
