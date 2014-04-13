@@ -120,24 +120,19 @@ function  scene:ponerPeligro()
 	proPeligro = math.random ()
 		if(proPeligro<.04) then
 			 sheetW = { width=80, height=60,  numFrames=9 }
-			 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
+			 character = display.newImage( "asteroide.png")
 
-			 sequenceDataWario =
-			{
-			    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
-			    { name="running", start=4, count=3,time=1000,loopCount=0 },
-			    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
-			}
+			
 			-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
-			character = display.newSprite( sheetWario, sequenceDataWario )
+			--character = display.newSprite( sheetWario, sequenceDataWario )
 
 			character.x = display.contentWidth --posicion inicial x 
 			valorAleatorio=math.random(1,display.contentHeight)
 			character.y = valorAleatorio --posicion inicial y
-			character.h = 60
-			character.w = 80
+			character.h = 10
+			character.w = 10
 
-			character:play()
+			--character:play()
 
 			group:insert(character)
 
@@ -236,10 +231,12 @@ function update(event)
 	move(event)
 	dispara()
 
+
 		scene:ponerPeligro()
 		for keyPiedra,piedra in ipairs(lPiedras) do 
 				piedra.x=piedra.x-1;
 				
+				piedra.rotation = 4+ piedra.rotation 
 
 				if(colision(nave,piedra)) then
 					table.remove(lPiedras,keyPiedra)
