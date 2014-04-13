@@ -23,8 +23,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "ladrillo.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
@@ -40,8 +40,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
@@ -55,8 +55,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --onPress = hola 
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
@@ -72,8 +72,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
@@ -88,8 +88,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
@@ -104,8 +104,8 @@ function scene:createScene( event )
 	{
 	width = 80,
     height = 80,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",

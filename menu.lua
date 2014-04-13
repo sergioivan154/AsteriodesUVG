@@ -38,8 +38,8 @@ function scene:createScene( event )
 	{
 	width = 110,
     height = 110,
-    defaultFile = "crate.png",
-    overFile = "crate.png",
+    defaultFile = "ladrillo.png",
+    overFile = "ladrillo.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
@@ -55,8 +55,8 @@ function scene:createScene( event )
 	{
 	width = 110,
     height = 110,
-    defaultFile = "ladrillo.png",
-    overFile = "crate.png",
+    defaultFile = "asteroide.png",
+    overFile = "asteroide.png",
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
