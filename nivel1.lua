@@ -228,7 +228,7 @@ local holi = function (event)
   					
   				end
 
-timer.performWithDelay( 35000, finish )
+timer.performWithDelay( 300, finish )
 
 --timer.performWithDelay( 3000, holi )
 
