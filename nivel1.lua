@@ -26,34 +26,53 @@ physics.getGravity(1,1)
 function scene:createScene( event )
 	local group = self.view
 
-	estrellas = display.newImage( "bg-estrellas.png" )
+
+estrellas = display.newImageRect( "bg-estrellas.png",display.contentWidth, display.contentHeight  )
 	--estrellas.xScale = 4.2; estrellas.yScale = 4.2
 	estrellas.anchorX = LEFT_REF
 	estrellas.x = 0
-	--estrellas.y = baseline - 20
+	estrellas.y = 130
 	group:insert(estrellas)
 
-	estrellas2 = display.newImage( "bg-estrellas.png" )
+	estrellas2 = display.newImageRect( "bg-estrellas.png",display.contentWidth, display.contentHeight  )
 	--estrellas2.xScale = 4.2; estrellas2.yScale = 4.2
 	estrellas2.anchorX = LEFT_REF
-	estrellas2.x = 840
-	--estrellas2.y = baseline - 20
+	estrellas2.x = 480
+	estrellas2.y = 130
 	group:insert(estrellas2)
 
-	grass = display.newImage( "bg-terreno.png" )
+
+	piso = display.newImageRect( "bg-terreno.png",display.contentWidth, display.contentHeight  )
+	--piso.xScale = 4.2; piso.yScale = 4.2
+	piso.anchorX = LEFT_REF
+	piso.x = 0
+	piso.y = 130
+	group:insert(piso)
+
+	piso2 = display.newImageRect( "bg-terreno.png",display.contentWidth, display.contentHeight  )
+	--piso2.xScale = 4.2; piso2.yScale = 4.2
+	piso2.anchorX = LEFT_REF
+	piso2.x = 480
+	piso2.y = 130
+	group:insert(piso2)
+
+
+
+
+	grass = display.newImage( "bg-terreno-base.png" )
 	--grass.xScale = 6.2; grass.yScale = 6.2
 	grass.anchorX = LEFT_REF
-	grass.w=2808
+	grass.w=480
 	grass.x = 0
-	grass.y = baseline - 20
+	grass.y = baseline-grass.contentHeight*2
 	physics.addBody( grass,"static",{friction=.03} )
 	group:insert(grass)
 
-	grass2 = display.newImage( "bg-terreno.png" )
+	grass2 = display.newImage( "bg-terreno-base.png" )
 	--grass2.xScale = 2.2; grass2.yScale = 2.2
 	grass2.anchorX = LEFT_REF
-	grass2.x = 2808
-	grass2.y = baseline - 20
+	grass2.x = 480
+	grass2.y = baseline-grass2.contentHeight*2
 	physics.addBody( grass2,"static",{friction=.03} )
 	group:insert(grass2)
 
@@ -127,21 +146,31 @@ local function move(event)
 	grass.x = grass.x - xOffset
 	grass2.x = grass2.x - xOffset
 
-	estrellas.x = estrellas.x - xOffset
-	estrellas2.x = estrellas2.x - xOffset
+	piso.x = piso.x - xOffset
+	piso2.x = piso2.x - xOffset
+
+	estrellas.x = estrellas.x - (xOffset/5)
+	estrellas2.x = estrellas2.x - (xOffset/5)
 	
 	if (grass.x + grass.contentWidth) < 0 then
-		grass:translate( 2808 * 2, 0)
+		grass:translate( 480 * 2, 0)
 	end
 	if (grass2.x + grass2.contentWidth) < 0 then
-		grass2:translate( 2808 * 2, 0)
+		grass2:translate( 480 * 2, 0)
+	end
+
+	if (piso.x + piso.contentWidth) < 0 then
+		piso:translate( 480 * 2, 0)
+	end
+	if (piso2.x + piso2.contentWidth) < 0 then
+		piso2:translate( 480 * 2, 0)
 	end
 
 	if (estrellas.x + estrellas.contentWidth) < 0 then
-		estrellas:translate( 840 * 2, 0)
+		estrellas:translate( 480 * 2, 0)
 	end
 	if (estrellas2.x + estrellas2.contentWidth) < 0 then
-		estrellas2:translate( 840 * 2, 0)
+		estrellas2:translate( 480 * 2, 0)
 	end
 	
 	--local i
