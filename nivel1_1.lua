@@ -6,6 +6,7 @@ local widget = require("widget")
 -- local forward references should go here --
 local acc = {}
 local centerX = display.contentWidth * 0.5
+local centerY = display.contentHeight * 0.5
 
 local function btnTap(event)
 	storyboard.gotoScene (  event.target.destination, {effect = "fade"} )
@@ -13,8 +14,8 @@ local function btnTap(event)
 end
 
 local function accelerometero( event )
-    character.x = centerX + (centerX * event.xGravity)
-
+    character.x = centerX - (centerX * event.xGravity)
+    character.y = centerY - (centerY * event.yGravity)
 end 
 
 
