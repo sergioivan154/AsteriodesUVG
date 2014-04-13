@@ -2,15 +2,11 @@ local storyboard = require( "storyboard" )
 local scene = storyboard.newScene()
 local widget = require("widget")
 
--- local forward references should go here --
-
-
+-- metodo para cambiar de pantalla
 local function btnTap(event)
 	storyboard.gotoScene (  event.target.destination, {effect = "fade"} )
 	return true
 end
-
-
 
 -- Called when the scene's view does not exist:
 function scene:createScene( event )
@@ -23,54 +19,102 @@ function scene:createScene( event )
 	group:insert(background)
 
 	-- create custom buttom
-	local lunasBtn = widget.newButton
+	local planets1 = widget.newButton
 	{
-	width = 110,
-    height = 110,
-    defaultFile = "crate.png",
+	width = 80,
+    height = 80,
+    defaultFile = "ladrillo.png",
     overFile = "crate.png",
     --onPress = holi
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
-	lunasBtn.x = centerX + (centerX/1.5)
-	lunasBtn.y = centerY*1.2
-	lunasBtn.destination = "options"
-	--optionsBtn:addEventListener("tap", btnTap)
-	group:insert(lunasBtn)
+	planets1.x = centerX - (centerX/1.5)
+	planets1.y = centerY*.7
+	planets1.destination = "nivel1"
+	planets1:addEventListener("tap", btnTap)
+	group:insert(planets1)
 
 
-	local planetasBtn = widget.newButton
+	local planets2 = widget.newButton
 	{
-	width = 110,
-    height = 110,
-    defaultFile = "ladrillo.png",
+	width = 80,
+    height = 80,
+    defaultFile = "crate.png",
     overFile = "crate.png",
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
-	planetasBtn.x = centerX
-	planetasBtn.y = centerY*1.2
-	planetasBtn.destination = "planetsMenu"
-	planetasBtn:addEventListener("tap", btnTap)
-	group:insert(planetasBtn) 
+	planets2.x = centerX
+	planets2.y = centerY*.7
+	--planets2.destination = "nivel1"
+	--planets2:addEventListener("tap", btnTap)
+	group:insert(planets2) 
 
-	local introBtn = widget.newButton
+	local planets3 = widget.newButton
 	{
-	width = 110,
-    height = 110,
+	width = 80,
+    height = 80,
     defaultFile = "crate.png",
     overFile = "crate.png",
     --onPress = hola 
     --label="Options",
 	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
 	}
-	introBtn.x = centerX - (centerX/1.5)
-	introBtn.y = centerY*1.2
-	introBtn.destination = "options"
-	--optionsBtn:addEventListener("tap", btnTap)
-	group:insert(introBtn)
+	planets3.x = centerX + (centerX/1.5)
+	planets3.y = centerY*.7
+	--planets3.destination = "options"
+	--planets3:addEventListener("tap", btnTap)
+	group:insert(planets3)
 
+
+	local planets4 = widget.newButton
+	{
+	width = 80,
+    height = 80,
+    defaultFile = "crate.png",
+    overFile = "crate.png",
+    --onPress = holi
+    --label="Options",
+	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
+	}
+	planets4.x = centerX - (centerX/1.5)
+	planets4.y = centerY*1.5
+	--planets4.destination = "nivel1"
+	--planets4:addEventListener("tap", btnTap)
+	group:insert(planets4)
+
+	local planets5 = widget.newButton
+	{
+	width = 80,
+    height = 80,
+    defaultFile = "crate.png",
+    overFile = "crate.png",
+    --onPress = holi
+    --label="Options",
+	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
+	}
+	planets5.x = centerX 
+	planets5.y = centerY*1.5
+	--planets5.destination = "nivel1"
+	--planets5:addEventListener("tap", btnTap)
+	group:insert(planets5)
+
+	local planets6 = widget.newButton
+	{
+	width = 80,
+    height = 80,
+    defaultFile = "crate.png",
+    overFile = "crate.png",
+    --onPress = holi
+    --label="Options",
+	--labelColor = { default = { 250, 255, 250}, over ={0,0,0  }},fontSize = "46",
+	}
+	planets6.x = centerX + (centerX/1.5)
+	planets6.y = centerY*1.5
+	--planets6.destination = "nivel1"
+	--planets6:addEventListener("tap", btnTap)
+	group:insert(planets6)
 	
 --hol
 	
@@ -128,4 +172,3 @@ scene:addEventListener( "destroyScene", scene )
 ---------------------------------------------------------------------------------
 
 return scene---------------------------------------------------------
-
