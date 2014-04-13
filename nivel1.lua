@@ -2,8 +2,11 @@
 local storyboard = require("storyboard" )
 local scene = storyboard.newScene()
 local widget = require("widget")
--- Elemento necesario
-
+-- Elemento de touch
+local x,y= 0,0
+local bala = display.newImage( "ladrillo.png" )
+local posx=bala.x
+local posy=bala.y
 
 -- Variables para paralax
 local TOP_REF = 0
@@ -97,9 +100,15 @@ local function move(event)
 	end
 end
 
+function rectay(x1,x2,y1,y2,posx)
 
+	 imposy=(((y2-y1)/(x2-x1))*(posx-x1)) +y1
+	  print( imposy .." X2 ".. x2.." X1 ".. x1.." Y2 ".. y2 .." Y1 ".. y1 .." Pos X ".. posx)
+	return imposy
+	
+	end
 -- Lista Piedras
-local iPiedras=0
+
 local lPiedras={}
 
 --una imagen con cortes w,h y el numero de frames  para un sprite ocupo 2 imagenes
@@ -125,7 +134,8 @@ player.y = baseline - 70 --posicion inicial y
 player.h = 100
 player.w = 61
 
-
+bala.x=player.x
+bala.y=player.y
 
 
 
@@ -201,6 +211,7 @@ function  comprobarColisiones(value,key)
 				value:removeSelf( )
 				value=nil
 	end
+	
 end
 function  ponerPeligro()
 	
@@ -233,13 +244,27 @@ function  ponerPeligro()
 	end
 
 end
+--Evento Touch
+local  ontTouch = function (event )
+	if (event.phase=="began") then
+--	bala[bala.lenght+1]=display.newImage( "ladrillo.png" )
+x=event.x
+y=event.y
 
+to=true
+	return true
+	end
+end
 -- Logica del juego
 
 function update(event)
 
+	if(to==true and x>bala.x and y>bala.y)then
+	bala.x=bala.x+3
+	bala.y=(rectay(posx,x,posy, y,bala.x))
 		--Probabilidad de peligro 
-
+	end
+	
 		ponerPeligro()
 		for key,value in ipairs(lPiedras) do 
 				value.x=value.x-1;
@@ -254,7 +279,7 @@ function update(event)
 end
 
 
-
+Runtime:addEventListener( "touch", ontTouch )
 Runtime:addEventListener("enterFrame", update )
 Runtime:addEventListener("enterFrame", move )
 ---------------------------------------------------------------------------------
