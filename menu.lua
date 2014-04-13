@@ -22,20 +22,6 @@ function scene:createScene( event )
 	background.x, background.y = 0, 0
 	group:insert(background)
 
-	local health = display.newImageRect( "boto.png", 205, 15 )
-	health.x, health.y = 210, 6
-	group:insert(health)
-
-	local holi = function ( event )
-		--os.exit( )
-		health.width = health.width - 5
-	end
-	local hola = function ( event )
-		--os.exit( )
-		health.width = health.width + 5
-	end
-
-
 	-- create custom buttom
 	local lunasBtn = widget.newButton
 	{
