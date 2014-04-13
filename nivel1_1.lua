@@ -39,7 +39,7 @@ function scene:createScene( event )
 	estrellas2.y = 160
 	group:insert(estrellas2)
 
-	health = display.newImageRect( "boto.png", 205, 15 )
+	health = display.newImageRect( "boto.png", 105, 15 )
 	health.x, health.y = 210, 6
 	group:insert(health)
 

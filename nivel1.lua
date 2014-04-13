@@ -81,9 +81,14 @@ function scene:createScene( event )
 	
 
 	 
-	health = display.newImageRect( "boto.png", 205, 15 )
-	health.x, health.y = 210, 6
+	health = display.newImageRect( "boto.png", 80, 15 )
+	health.x, health.y = 110, 6
 	group:insert(health)
+
+
+	precioso = display.newImageRect( "boto.png", 10, 15 )
+	precioso.x, precioso.y = 300, 6
+	group:insert(precioso)
 
 	sheetData1 = { width=61, height=100,  numFrames=3 }
 	sheet1 = graphics.newImageSheet( "Espera.png", sheetData1 )
@@ -233,7 +238,7 @@ local holi = function (event)
   					
   				end
 
-timer.performWithDelay( 10000, finish )
+timer.performWithDelay( 25000, finish )
 
 --timer.performWithDelay( 3000, holi )
 
@@ -274,23 +279,43 @@ function  scene:ponerPeligro()
 	local group = self.view
 
 	proPeligro = math.random ()
-		if(proPeligro<.01) then
-			 sheetW = { width=80, height=60,  numFrames=9 }
-			 sheetWario = graphics.newImageSheet( "wario.png", sheetW )
+		if(proPeligro<.02) then
+			 sheetW = { width=48, height=48,  numFrames=1 }
+			 sheetWario = graphics.newImageSheet( "mineral-normal.png", sheetW )
 
 			 sequenceDataWario =
 			{
-			    { name="walking", start=1, count=3,time=700 ,loopCount=0 },
-			    { name="running", start=4, count=3,time=1000,loopCount=0 },
-			    { name="jumping", start=8, count=4, time=800 ,loopCount=0 }
-			}
+			    { name="walking", start=1, count=1,time=700 ,loopCount=0 },
+			 }
 			-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
 			character = display.newSprite( sheetWario, sequenceDataWario )
 
 			character.x = display.contentWidth --posicion inicial x 
 			character.y = baseline - 60 --posicion inicial y
-			character.h = 60
-			character.w = 80
+			character.h = 48
+			character.w = 48
+
+			character:play()
+
+			group:insert(character)
+
+			table.insert(lPiedras, character)
+		
+		elseif(proPeligro<.04) then
+			 sheetW = { width=48, height=48,  numFrames=1 }
+			 sheetWario = graphics.newImageSheet( "asteroide.png", sheetW )
+
+			 sequenceDataWario =
+			{
+			    { name="walking", start=1, count=1,time=700 ,loopCount=0 },
+			 }
+			-- Esta función pone objetos a las listas de peligros para que hacer la colision con el personaje principal
+			character = display.newSprite( sheetWario, sequenceDataWario )
+
+			character.x = display.contentWidth --posicion inicial x 
+			character.y = baseline - 60 --posicion inicial y
+			character.h = 48
+			character.w = 48
 
 			character:play()
 
@@ -392,6 +417,8 @@ function update(event)
 						table.remove(lbalas,keyBala)
 						bala[0]:removeSelf()
 						bala[0]=nil
+
+						precioso.width = precioso.width +5
 					
 					elseif(bala[0].x>display.contentWidth or bala[0].y>display.contentHeight or bala[0].y<0 or bala[0].x<0)then
 						table.remove(lbalas,keyBala)
