@@ -138,8 +138,13 @@ function  scene:ponerPeligro()
 			valorAleatorio=math.random(1,display.contentHeight)
 			character.y = valorAleatorio --posicion inicial y
 			character.h = 159
+
 			character.w = 162
 
+			randomX=math.random();
+			character.xScale=randomX
+			character.yScale=randomX
+			
 			--character:play()
 
 			group:insert(character)
